@@ -23,7 +23,8 @@ class Server {
     middlewares() {
         this.app.use(express.static(path.resolve(__dirname, '../public')));
         this.app.use(cors());
-        this.app.use('/api/login', require('../route/auth'))
+        this.app.use(express.json());
+        this.app.use('/api/login', require('../route/auth'));
     }
 
     sockets() {
