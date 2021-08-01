@@ -38,13 +38,37 @@ const crearUsuario = async (req, res = response) => {
 }
 
 const login = async (req, res = response) => {
-
-
     const { email, password } = req.body;
-    res.json({
-        ok: true,
-        msg: 'login'
-    });
+
+    try {
+        //verificar email
+        const usuarioDB = await Usuario.findOne({email});
+        if(!usuarioDB){
+            return res.status(404).json({
+                msg: "El email no se existe"
+            });
+        }
+
+        //validar password
+        const validPassword = bcrypt.compareSync(password, usuarioDB.password);
+        if(!validPassword){
+            return res.status(404).json({
+                msg: "Datos no validos"
+            });
+        }
+
+        //generar token
+        const token = await generarJWT(usuarioDB.id);
+        
+        res.json({
+            token
+        });
+        
+    } catch (error) {
+        res.status(500).json({
+            msg: "Ocurrio un error en el servidor. Contacte al Administrador"
+        });
+    }
 }
 
 const renewToken = async (req, res = response) => {
