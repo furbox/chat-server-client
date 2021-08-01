@@ -63,7 +63,7 @@ const login = async (req, res = response) => {
         res.json({
             token
         });
-        
+
     } catch (error) {
         res.status(500).json({
             msg: "Ocurrio un error en el servidor. Contacte al Administrador"
@@ -72,9 +72,14 @@ const login = async (req, res = response) => {
 }
 
 const renewToken = async (req, res = response) => {
+
+    const uid = req.uid;
+
+    //generar un nuevo JWT
+    const token = await generarJWT(uid);
+
     res.json({
-        ok: true,
-        msg: 'renew'
+        token
     });
 }
 
