@@ -17,6 +17,12 @@ class Sockets {
             //emitir a todos los usuarios conectados
 
             //socket join
+            
+            //mensaje personal
+
+            //desconectar
+
+            //emitir los usuaios online
 
             socket.emit('[SERVER]:msg-bienvenida', {
                 msg: 'Bienvenido al Server',
