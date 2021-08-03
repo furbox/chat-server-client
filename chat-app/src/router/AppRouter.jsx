@@ -11,14 +11,12 @@ import { AuthRouter } from './AuthRouter';
 export const AppRouter = () => {
     return (
         <Router>
-            <div>
-                <Switch>
-                    <Route path="/auth" component={AuthRouter} />
-                    <Route exact path="/" component={ChatPage} />
+            <Switch>
+                <Route path="/auth" component={AuthRouter} />
+                <Route exact path="/" component={ChatPage} />
 
-                    <Redirect to="/" />
-                </Switch>
-            </div>
+                <Redirect to="/" />
+            </Switch>
         </Router>
     )
 }
