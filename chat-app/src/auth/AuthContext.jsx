@@ -1,5 +1,5 @@
 import React, { createContext, useCallback, useState } from "react";
-import { fetchSinToken } from "../helpers/fetch";
+import { fetchConToken, fetchSinToken } from "../helpers/fetch";
 
 export const AuthContext = createContext();
 
@@ -26,17 +26,59 @@ export const AuthProvider = ({ children }) => {
                 logged: true,
                 name: usuario.nombre,
                 email: usuario.email
-            })
+            });
+            return resp.ok;
         }
-        return resp.ok;
+        return resp.msg;
     }
 
-    const register = (nombre, email, password) => {
-
+    const register = async (nombre, email, password) => {
+        const resp = await fetchSinToken('login/new', { nombre, email, password }, 'POST');
+        if (resp.ok) {
+            localStorage.setItem('token', resp.token);
+            const { usuario } = resp;
+            setAuth({
+                uid: usuario.uid,
+                checking: false,
+                logged: true,
+                name: usuario.nombre,
+                email: usuario.email
+            })
+            return resp.ok;
+        }
+        return resp.msg;
     }
 
-    const verificarToken = useCallback(() => {
+    const verificarToken = useCallback(async () => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            setAuth({
+                checking: false,
+                logged: false
+            });
 
+            return false;
+        }
+        const resp = await fetchConToken('auth/renew');
+
+        if (resp.ok) {
+            localStorage.setItem('token', resp.token);
+            const { usuario } = resp;
+            setAuth({
+                uid: usuario.uid,
+                checking: false,
+                logged: true,
+                name: usuario.nombre,
+                email: usuario.email
+            })
+            return resp.ok;
+        } else {
+            setAuth({
+                checking: false,
+                logged: false
+            });
+            return false;
+        }
     }, []);
 
     const logout = () => {

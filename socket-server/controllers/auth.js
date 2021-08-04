@@ -29,6 +29,7 @@ const crearUsuario = async (req, res = response) => {
 
         res.json({
             token,
+            usuario,
             ok:true
         });
 
