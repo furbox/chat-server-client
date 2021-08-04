@@ -23,7 +23,7 @@ export const fetchConToken = async (endpoint, data, method = 'GET') => {
     const token = localStorage.getItem('token');
 
     if (method === 'GET') {
-        const resp = await fetch(url. {
+        const resp = await fetch(url, {
             headers: {
                 'Content-type': 'application/json',
                 'x-token': token
