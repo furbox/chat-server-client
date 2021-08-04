@@ -10,7 +10,8 @@ const crearUsuario = async (req, res = response) => {
 
         if(existeEmail){
             return res.status(400).json({
-                msg: 'El email ya existe!'
+                msg: 'El email ya existe!',
+                ok:false
             });
         }
 
@@ -27,12 +28,14 @@ const crearUsuario = async (req, res = response) => {
         const token = await generarJWT(usuario.id);
 
         res.json({
-            token
+            token,
+            ok:true
         });
 
     } catch (error) {
         res.status(500).json({
-            msg: "Ocurrio un error en el servidor. Contacte al Administrador"
+            msg: "Ocurrio un error en el servidor. Contacte al Administrador",
+            ok:false
         })
     }
 }
@@ -45,7 +48,8 @@ const login = async (req, res = response) => {
         const usuarioDB = await Usuario.findOne({email});
         if(!usuarioDB){
             return res.status(404).json({
-                msg: "El email no se existe"
+                msg: "El email no se existe",
+                ok:false
             });
         }
 
@@ -53,7 +57,8 @@ const login = async (req, res = response) => {
         const validPassword = bcrypt.compareSync(password, usuarioDB.password);
         if(!validPassword){
             return res.status(404).json({
-                msg: "Datos no validos"
+                msg: "Datos no validos",
+                ok:false
             });
         }
 
@@ -61,12 +66,15 @@ const login = async (req, res = response) => {
         const token = await generarJWT(usuarioDB.id);
         
         res.json({
-            token
+            token,
+            ok:true,
+            usuario:usuarioDB
         });
 
     } catch (error) {
         res.status(500).json({
-            msg: "Ocurrio un error en el servidor. Contacte al Administrador"
+            msg: "Ocurrio un error en el servidor. Contacte al Administrador",
+            ok:false
         });
     }
 }
@@ -79,7 +87,8 @@ const renewToken = async (req, res = response) => {
     const token = await generarJWT(uid);
 
     res.json({
-        token
+        token,
+        ok:true
     });
 }
 

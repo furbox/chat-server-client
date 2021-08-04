@@ -13,7 +13,8 @@ const obtenerChat = async(req, res) => {
     }).limit(30);
 
     res.json({
-        mensajes: last30
+        mensajes: last30,
+        ok:true
     });
 
 }
