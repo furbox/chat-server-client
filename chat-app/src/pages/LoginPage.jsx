@@ -8,8 +8,8 @@ export const LoginPage = () => {
     const { login } = useContext(AuthContext);
 
     const [form, setForm] = useState({
-        email: 'furbox@gmail.com',
-        password: 'Admin123',
+        email: '',
+        password: '',
         rememberme: false
     });
 

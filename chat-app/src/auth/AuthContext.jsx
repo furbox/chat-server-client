@@ -59,7 +59,7 @@ export const AuthProvider = ({ children }) => {
 
             return false;
         }
-        const resp = await fetchConToken('auth/renew');
+        const resp = await fetchConToken('login/renew');
 
         if (resp.ok) {
             localStorage.setItem('token', resp.token);
@@ -82,7 +82,11 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     const logout = () => {
-
+        localStorage.removeItem('token');
+        setAuth({
+            checking: false,
+            logged: false
+        });
     }
 
     return (

@@ -84,10 +84,19 @@ const renewToken = async (req, res = response) => {
 
     const uid = req.uid;
 
+    const usuario = await Usuario.findById(uid);
+        if(!usuario){
+            return res.status(404).json({
+                msg: "El usuario no se existe",
+                ok:false
+            });
+        }
+
     //generar un nuevo JWT
     const token = await generarJWT(uid);
 
     res.json({
+        usuario,
         token,
         ok:true
     });

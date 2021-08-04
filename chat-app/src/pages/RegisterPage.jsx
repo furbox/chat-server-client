@@ -8,9 +8,9 @@ export const RegisterPage = () => {
     const { register } = useContext(AuthContext);
 
     const [form, setForm] = useState({
-        name: 'Test 1',
-        email: 'test1@test.com',
-        password: 'Admin123'
+        name: '',
+        email: '',
+        password: ''
     });
 
     const onChange = ({ target }) => {
