@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const SideBarChatItem = () => {
+export const SideBarChatItem = ({usuario}) => {
     return (
         <div className="chat_list ">
             {/* active_chat */}
@@ -9,9 +9,12 @@ export const SideBarChatItem = () => {
                     <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.pngarts.com%2Ffiles%2F3%2FAvatar-Transparent-Image.png&f=1&nofb=1" alt="sunil" />
                 </div>
                 <div className="chat_ib">
-                    <h5>Some random name</h5>
-                    <span className="text-success">Online</span>
-                    <span className="text-danger">Offline</span>
+                    <h5>{usuario.nombre}</h5>
+                    {
+                        (usuario.online) ? <span className="text-success">Online</span> : <span className="text-danger">Offline</span>
+                    }
+                    
+                    
                 </div>
             </div>
         </div>

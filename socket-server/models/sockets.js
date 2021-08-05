@@ -8,7 +8,7 @@ class Sockets {
     }
 
     socketEvents() {
-        this.io.on('connection', async(socket) => {
+        this.io.on('connection', async (socket) => {
             console.log('[SOCKET]: ', socket.handshake.query['x-token']);
             const [valido, uid] = comprobarJWT(socket.handshake.query['x-token'])
             if (!valido) {
@@ -45,9 +45,10 @@ class Sockets {
                 this.io.emit('[SOCKET-SERVER]:msg-emit', data);
             });
 
-            socket.on('disconnect', async() => {
+            socket.on('disconnect', async () => {
                 console.log('[SOCKET-CLIENT]: disconnected');
                 await usuarioDesconectado(uid);
+                this.io.emit('[SERVER]:lista-usuarios', await getUsuarios());
             });
         });
     }
