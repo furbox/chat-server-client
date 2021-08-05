@@ -12,13 +12,25 @@ const generarJWT = (uid) => {
             if (err) {
                 console.log('[ERR-JWT]: ', err);
                 reject('[ERR-JWT]: error al generar el token');
-            }else{
+            } else {
                 resolve(token);
             }
         });
     })
 }
 
+const comprobarJWT = (token = '') => {
+    try {
+
+        const { uid } = jwt.verify(token, process.env.SECRET_KEY_JWT);
+        return [true, uid];
+
+    } catch (error) {
+        return [false, null];
+    }
+}
+
 module.exports = {
-    generarJWT
+    generarJWT,
+    comprobarJWT
 }
