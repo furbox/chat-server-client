@@ -6,7 +6,7 @@ export const SideBarChatItem = () => {
             {/* active_chat */}
             <div className="chat_people">
                 <div className="chat_img">
-                    <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil" />
+                    <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.pngarts.com%2Ffiles%2F3%2FAvatar-Transparent-Image.png&f=1&nofb=1" alt="sunil" />
                 </div>
                 <div className="chat_ib">
                     <h5>Some random name</h5>

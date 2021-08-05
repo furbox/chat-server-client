@@ -32,6 +32,11 @@ class Sockets {
             socket.on('[SOCKET-CLIENT]:msg-emit', (data) => {
                 this.io.emit('[SOCKET-SERVER]:msg-emit', data);
             });
+
+
+            socket.on('disconnect', () => {
+                console.log('[SOCKET-CLIENT]: disconnected');
+            })
         });
     }
 }

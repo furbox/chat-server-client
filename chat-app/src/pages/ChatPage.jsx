@@ -16,7 +16,7 @@ export const ChatPage = () => {
                 {/* <!-- Chat inicio --> */}
                 
                 {
-                    (true) ? <Messages /> : <ChatSelect/>
+                    (false) ? <Messages /> : <ChatSelect/>
                 }
                 
                 {/* <!-- Chat Fin --> */}
