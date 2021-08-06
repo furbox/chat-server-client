@@ -20,6 +20,9 @@ class Sockets {
 
             await usuarioConectado(uid);
 
+            //unir al usuario a una sala de socket.io            
+            socket.join(uid);
+
             //validar jwt
             //desconectar si el token no es valido
 
@@ -31,6 +34,9 @@ class Sockets {
             //socket join
 
             //mensaje personal
+            socket.on('[SOCKET-CLIENT]:mensaje-personal', (payload) => {
+                console.log(payload)
+            });
 
             //desconectar
 
