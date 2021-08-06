@@ -1,4 +1,4 @@
-const { usuarioConectado, usuarioDesconectado, getUsuarios } = require('../controllers/sockets');
+const { usuarioConectado, usuarioDesconectado, getUsuarios, grabarMensaje } = require('../controllers/sockets');
 const { comprobarJWT } = require('../helpers/jwt');
 
 class Sockets {
@@ -34,8 +34,10 @@ class Sockets {
             //socket join
 
             //mensaje personal
-            socket.on('[SOCKET-CLIENT]:mensaje-personal', (payload) => {
-                console.log(payload)
+            socket.on('[SOCKET-CLIENT]:mensaje-personal', async (payload) => {
+                const mensaje = await grabarMensaje(payload);
+                this.io.to(payload.para).emit('[SOCKET-CLIENT]:mensaje-personal', mensaje);
+                this.io.to(payload.de).emit('[SOCKET-CLIENT]:mensaje-personal', mensaje);
             });
 
             //desconectar

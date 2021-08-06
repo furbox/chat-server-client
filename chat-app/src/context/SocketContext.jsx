@@ -35,6 +35,12 @@ export const SocketProvider = ({ children }) => {
         });
     }, [socket, dispatch]);
 
+    useEffect(() => {
+        socket?.on('[SOCKET-CLIENT]:mensaje-personal', (mensaje) => {
+            
+        });
+    }, [socket, dispatch]);
+
     return (
         <SocketContext.Provider value={{ socket, online }}>
             {children}
