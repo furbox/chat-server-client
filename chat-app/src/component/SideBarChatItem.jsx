@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { ChatContext } from '../context/chat/ChatContext';
+import { fetchConToken } from '../helpers/fetch';
 import { types } from '../types/types';
 
 export const SideBarChatItem = ({ usuario }) => {
@@ -7,11 +8,19 @@ export const SideBarChatItem = ({ usuario }) => {
     const { chatState, dispatch } = useContext(ChatContext);
     const { chatActivo } = chatState;
 
-    const onClick = () => {
+    const onClick = async() => {
         dispatch({
             type: types.activarChat,
             payload: usuario.uid
         });
+        //cargar los mensajes del chat
+        const resp = await fetchConToken(`mensajes/${usuario.uid}`);
+        dispatch({
+            type: types.cargarMensajes,
+            payload: resp.mensajes
+        });
+        //TODO: mover el scroll
+        
     }
 
     return (
@@ -26,8 +35,6 @@ export const SideBarChatItem = ({ usuario }) => {
                     {
                         (usuario.online) ? <span className="text-success">Online</span> : <span className="text-danger">Offline</span>
                     }
-
-
                 </div>
             </div>
         </div>
